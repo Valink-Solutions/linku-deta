@@ -1,0 +1,25 @@
+{
+    "name": "Linku - Deta Deployment",
+    "description": "Open Source URL Shortening Service", 
+    "runtime": "python3.11",
+    "env": [
+        {
+            "key": "APP_NAME",
+            "description": "Application name to be used in the application",
+            "value": "Linku - Deta Deployment",
+            "required": false 
+        },
+        {
+            "key": "APP_URL",
+            "description": "Application URL to be used in the application",
+            "value": "https://linku.click",
+            "required": false
+        },
+        {
+            "key": "APP_SECRET",
+            "description": "Application secret to be used for generating tokens use a 256-bit key from https://randomkeygen.com/",
+            "value": "wfSxyX4KLYIagVEicpaGTCwNQyJphRx3",
+            "required": true
+        }
+    ]
+}
