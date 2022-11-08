@@ -1,27 +1,36 @@
 import os
+import shutil
 import qrcode
 
 from fastapi import HTTPException, status
 from fastapi.responses import StreamingResponse
 
 from core import settings
-from core.connections import qr_drive
+from core.connections import qr_drive, settings_db
 
 
 def create_qr_code(short_code: str, *, qr_type: str = 'png'):
     try:
         qr = qrcode.QRCode(
-                version=1,
+                version=2,
                 box_size=10,
                 border=5)
         
-        qr.add_data(f"{settings.APP_URL}/{short_code}")
+        APP_URL = settings_db.get('APP_URL')
         
-        qr.make(fit=True)
-        
-        img = qr.make_image(fill='black', back_color='white')
-        
-        img.save(os.path.join('/tmp', f'{short_code}.{qr_type}'))
+        if APP_URL.get('APP_URL'):
+            
+            qr.add_data(f"{APP_URL.get('APP_URL')}/{short_code}")
+            
+            qr.make(fit=True)
+            
+            img = qr.make_image(fill='black', back_color='white')
+            
+            img.save(os.path.join('/tmp', f'{short_code}.{qr_type}'))
+            
+        else:
+            raise HTTPException(status_code=500, detail="APP_URL not set (POST /settings.)")
+            
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Error creating new QR Code.")
@@ -31,6 +40,8 @@ def upload_qr_code(short_code: str):
         
         with open(os.path.join('/tmp', f'{short_code}.png'), 'rb') as f:
             qr_drive.put(f'{short_code}.png', f)
+            
+        os.remove(os.path.join('/tmp', f'{short_code}.png'))
         
     except Exception as e:
         print(e)

@@ -8,7 +8,7 @@ except ImportError:
     pass
 
 APP_NAME = os.getenv("APP_NAME")
-APP_URL = os.getenv("APP_URL")
+# APP_URL = os.getenv("APP_URL")
 APP_SECRET = os.getenv("APP_SECRET")
 APP_ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES=30

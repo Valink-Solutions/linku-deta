@@ -26,6 +26,17 @@ def create_snapshot_data(event):
     if response.count > 0:
     
         for item in response.items:
-            create_snapshot(Snapshot(short_code=item["key"], clicks=item["clicks"]))
-            url_db.update({"clicks": 0}, item["key"])
+            create_snapshot(Snapshot(short_code=item["key"], clicks=item["daily_clicks"]))
+            url_db.update({"daily_clicks": 0}, item["key"])
+            
+def csd_non_cron():
+    """Creates all snapshots for all links."""
+    
+    response = url_db.fetch(query=None, limit=1000, last=None)
+    
+    if response.count > 0:
+    
+        for item in response.items:
+            create_snapshot(Snapshot(short_code=item["key"], clicks=item["daily_clicks"]))
+            url_db.update({"daily_clicks": 0}, item["key"])
             

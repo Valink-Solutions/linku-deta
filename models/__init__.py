@@ -1,6 +1,6 @@
 from time import time
 
-from typing import Optional
+from typing import List, Optional
 from pydantic import BaseModel, Field
 
 # Utility Models
@@ -18,3 +18,12 @@ class Snapshot(BaseModel):
     short_code: str
     clicks: int = 0
     date: float = Field(default_factory=time)
+    
+
+class SnapshotResponse(BaseModel):
+    count: int
+    last: Optional[str] = None
+    items: List[Snapshot]
+
+    class Config:
+        orm_mode = True

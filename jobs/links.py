@@ -5,7 +5,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.encoders import jsonable_encoder
 
 from core import settings
-from core.connections import url_db
+from core.connections import url_db, settings_db
 from models.links import CreateLink, LinkInDB
 from tasks.qrcodes import create_qr_code, get_qr_code, upload_qr_code
 
@@ -96,3 +96,10 @@ async def create_link_code(short_code: str):
         return get_qr_code(short_code)
     else:
         raise HTTPException(status_code=404, detail="Link not found.")
+    
+def update_base_link(link: str):
+    """Updates the base URL for the app."""
+    
+    settings_db.put({"APP_URL": link}, "APP_URL")
+    
+    return {"message": "Base link updated."}

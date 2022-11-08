@@ -10,12 +10,6 @@
             "required": false 
         },
         {
-            "key": "APP_URL",
-            "description": "Application URL to be used for shortened URLs",
-            "value": "https://linku.click",
-            "required": false
-        },
-        {
             "key": "APP_SECRET",
             "description": "Application secret to be used for generating tokens. use a 256-bit key from https://randomkeygen.com/ ",
             "value": "wfSxyX4KLYIagVEicpaGTCwNQyJphRx3",
@@ -29,7 +23,7 @@
         },
         {
             "key": "ADMIN_PASSWORD",
-            "description": "Admin password to be used for user authantication. use a strong password 8+ characters ",
+            "description": "Admin password to be used for user authantication (SAVE SOMEWHERE SAFE). use a strong password 8+ characters ",
             "value": "FwneCxlnxc",
             "required": true
         }
