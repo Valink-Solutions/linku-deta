@@ -1,6 +1,6 @@
 {
     "name": "Linku Deta Deployment",
-    "description": "Open Source URL Shortening Service developed by Valink Solutions (@valink_io)", 
+    "description": "Open Source URL Shortening Service developed by Valink Solutions (@valink_io) Make sure all of your environment variables are changed properly before running or else run the risk of security issues. ", 
     "runtime": "python3.9",
     "env": [
         {
@@ -33,5 +33,6 @@
             "value": "FwneCxlnxc",
             "required": true
         }
-    ]
+    ],
+    "cron": "0 0 * * ? *"
 }
