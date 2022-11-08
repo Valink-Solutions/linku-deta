@@ -1,5 +1,7 @@
+from time import time
+
 from typing import Optional
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, Field
 
 # Utility Models
 class Token(BaseModel):
@@ -12,24 +14,7 @@ class TokenData(BaseModel):
     # scopes: dict | None = None
     
     
-class VerifyToken(BaseModel):
-    token: str
-    
-    
-class RequestReset(BaseModel):
-    email: EmailStr
-    
-    
-class ResetPassword(BaseModel):
-    token: str
-    password: str
-    
-    
-class RequestVerification(BaseModel):
-    email: EmailStr
-    
-
-class StatusCheck(BaseModel):
-    name: str
-    version: str
-    description: str
+class Snapshot(BaseModel):
+    short_code: str
+    clicks: int = 0
+    date: float = Field(default_factory=time)
