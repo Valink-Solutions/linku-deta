@@ -1,7 +1,7 @@
 {
-    "name": "Linku - Deta Deployment",
+    "name": "Linku Deta Deployment",
     "description": "Open Source URL Shortening Service", 
-    "runtime": "python3.11",
+    "runtime": "python3.9",
     "env": [
         {
             "key": "APP_NAME",
@@ -11,14 +11,26 @@
         },
         {
             "key": "APP_URL",
-            "description": "Application URL to be used in the application",
+            "description": "Application URL to be used for shortened URLs",
             "value": "https://linku.click",
             "required": false
         },
         {
             "key": "APP_SECRET",
-            "description": "Application secret to be used for generating tokens use a 256-bit key from https://randomkeygen.com/",
+            "description": "Application secret to be used for generating tokens. use a 256-bit key from https://randomkeygen.com/ ",
             "value": "wfSxyX4KLYIagVEicpaGTCwNQyJphRx3",
+            "required": true
+        },
+        {
+            "key": "ADMIN_EMAIL",
+            "description": "Admin email to be used for admin login. ",
+            "value": "admin@valink.io",
+            "required": true
+        },
+        {
+            "key": "ADMIN_PASSWORD",
+            "description": "Admin password to be used for admin login. use a password from https://randomkeygen.com/ ",
+            "value": "FwneCxlnxc",
             "required": true
         }
     ]
