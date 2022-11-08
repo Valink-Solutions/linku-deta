@@ -6,4 +6,6 @@ This is a url shortener app built with FastAPI. Linku allows you to shorten link
 
 Deploy straight to deta, maybe one day we will have a better setup with Deta Space :)
 
+!!!!! MAKE SURE TO CHANGE ENVIRONMENT VARIABLES BEFORE DEPLOYING !!!!!
+
 [![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=https://github.com/Valink-Solutions/linku-deta)
