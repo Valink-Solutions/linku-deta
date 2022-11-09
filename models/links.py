@@ -1,7 +1,8 @@
+from datetime import datetime
 import time
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, HttpUrl
+from pydantic import BaseModel, Field, HttpUrl, validator
 
 
 class CreateLink(BaseModel):
@@ -30,8 +31,8 @@ class LinkInDB(BaseModel):
     
     daily_clicks: int = Field(default=0)
     
-    created_at: float = Field(default_factory=time.time)
-    updated_at: float = Field(default_factory=time.time)
+    created_at: str = Field(default_factory=lambda: datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    updated_at: str = Field(default_factory=lambda: datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
     
 
 class ShowLink(BaseModel):
@@ -39,8 +40,8 @@ class ShowLink(BaseModel):
     title: str
     long_url: HttpUrl
     daily_clicks: int
-    created_at: float
-    updated_at: float
+    created_at: str
+    updated_at: str
     
 
 class LinksResponse(BaseModel):

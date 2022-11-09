@@ -20,10 +20,9 @@
       href="{{ url_for('static', path='/dashboard.css') }}"
       rel="stylesheet"
     />
-    <link href="{{ url_for('static', path='/index.css') }}" rel="stylesheet" />
   </head>
   <body class="flex flex-col min-w-screen min-h-screen">
-    <main>
+    <main class="flex flex-col gap-4">
       <div class="h-[200px] my-4">
         <a href="/">
           <svg
@@ -118,47 +117,50 @@
           </svg>
         </a>
       </div>
-      <p
-        class="bg-slate-200 dark:bg-slate-800 drop-shadow-sm p-4 rounded-lg my-4 dark:text-slate-200 text-center text-lg"
-      >
-        Welcome to your personal
-        <span
-          class="bg-clip-text text-transparent bg-gradient-to-tr from-pink-500 to-violet-500 font-extrabold"
-          >Linku</span
-        >
-        deployment! <br />
-      </p>
 
-      <ul class="link-card-grid">
-        <li
-          class="group bg-slate-200 dark:bg-slate-800 drop-shadow-sm rounded-lg p-4 dark:text-slate-200 astro-LADUMS7V"
-        >
-          <a href="/dashboard/home" class="astro-LADUMS7V">
-            <h2 class="group-hover:text-purple-500 astro-LADUMS7V">
-              Home
-              <span class="astro-LADUMS7V">&rarr;</span>
-            </h2>
-            <p class="dark:text-slate-200 opacity-75 astro-LADUMS7V">
-              Manage your Linku deployment settings and all your links.
-            </p>
-          </a>
-        </li>
+      <h1 class="page-name">Login</h1>
 
-        <li
-          class="group bg-slate-200 dark:bg-slate-800 drop-shadow-sm rounded-lg p-4 dark:text-slate-200 astro-LADUMS7V"
+      <div class="bg-slate-200 dark:bg-slate-800 rounded p-4">
+        <form
+          action="/api/auth/cookie/login"
+          method="post"
+          class="flex flex-col gap-4"
         >
-          <a href="https://linku.click/docs" class="astro-LADUMS7V">
-            <h2 class="group-hover:text-purple-500 astro-LADUMS7V">
-              Documentation
-              <span class="astro-LADUMS7V">&rarr;</span>
-            </h2>
-            <p class="dark:text-slate-200 opacity-75 astro-LADUMS7V">
-              Learn how to use all of Linku&#39;s features and how the
-              deployment works.
-            </p>
-          </a>
-        </li>
-      </ul>
+          <div class="flex flex-col gap-2">
+            <label
+              for="username"
+              class="font-bold text-lg border-l-2 border-purple-500 pl-2"
+              >Email</label
+            >
+            <input
+              type="email"
+              name="username"
+              id="username"
+              placeholder="Enter Email"
+              class="input"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label
+              for="password"
+              class="font-bold text-lg border-l-2 border-purple-500 pl-2"
+              >Password</label
+            >
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter Password"
+              class="input"
+              required
+            />
+          </div>
+          <div class="flex flex-col">
+            <button type="submit" class="btn hover:bg-purple-500">Login</button>
+          </div>
+        </form>
+      </div>
     </main>
     <footer
       class="group text-center mx-auto my-4 text-slate-900 dark:text-slate-200 text-lg"

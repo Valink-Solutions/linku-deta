@@ -18,13 +18,13 @@
         {
             "key": "ADMIN_EMAIL",
             "description": "Admin email to be used for user authentication. ",
-            "value": "admin@valink.io",
+            "value": "",
             "required": true
         },
         {
             "key": "ADMIN_PASSWORD",
             "description": "Admin password to be used for user authantication (SAVE SOMEWHERE SAFE). use a strong password 8+ characters ",
-            "value": "FwneCxlnxc",
+            "value": "",
             "required": true
         }
     ],

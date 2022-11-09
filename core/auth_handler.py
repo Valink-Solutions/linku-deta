@@ -2,14 +2,15 @@ from datetime import datetime, timedelta
 from time import time
 from typing import Optional
 
-from fastapi import HTTPException, status, Depends
-from fastapi.responses import JSONResponse
+from fastapi import HTTPException, status, Depends, Cookie
+from fastapi.responses import RedirectResponse
 from fastapi.security import OAuth2PasswordBearer
 
 from jose import JWTError, jwt
 
 from core import settings
 from core.connections import auth_db
+from core.exceptions import CredentialsException
 
 from models import Token, TokenData
 from models.auth import User
@@ -60,4 +61,34 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
         raise credentials_exception
     
     return User(email=email)
+
+
+async def get_current_user_cookie(token: str) -> User:
+    
+    credentials_exception = CredentialsException("Could not validate credentials")
+    
+    try:
+        if not token:
+            raise credentials_exception
         
+        if token.startswith("Bearer "):
+            token = token[7:]
+        
+        payload = jwt.decode(token, settings.APP_SECRET, algorithms=[settings.APP_ALGORITHM])
+        
+        email: str = payload.get("email")
+        exp: time = payload.get("exp")
+    
+        if email is None:
+            raise credentials_exception
+        
+        if float(exp) <= time():
+            raise credentials_exception
+        
+        if email != settings.ADMIN_EMAIL:
+            raise credentials_exception
+        
+    except JWTError:
+        raise credentials_exception
+    
+    return User(email=email)
