@@ -22,6 +22,11 @@ async def get_dashboard(last: str = None, limit: int = 100, *, request: Request)
     link_results = url_db.fetch(query=None, last=last, limit=limit)
     settings_results = settings_db.get("APP_URL")
     
+    app_url = None
+    
+    if settings_results:
+        app_url = settings_results["APP_URL"]
+    
     links = link_results.items
     
-    return templates.TemplateResponse("dashboard.html", {"request": request, "links": links, "count": link_results.count, "app_url": settings_results["APP_URL"], "last_key": last, "new_last": link_results.last})
+    return templates.TemplateResponse("dashboard.html", {"request": request, "links": links, "count": link_results.count, "app_url": app_url, "last_key": last, "new_last": link_results.last})
