@@ -31,8 +31,8 @@ class LinkInDB(BaseModel):
     
     daily_clicks: int = Field(default=0)
     
-    created_at: str = Field(default_factory=lambda: datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
-    updated_at: str = Field(default_factory=lambda: datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    created_at: str = Field(default_factory=lambda: datetime.now().strftime("%b %d, %Y"))
+    updated_at: str = Field(default_factory=lambda: datetime.now().strftime("%b %d, %Y, %H:%M:%S"))
     
 
 class ShowLink(BaseModel):

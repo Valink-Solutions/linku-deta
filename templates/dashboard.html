@@ -16,10 +16,8 @@
       href="https://fonts.bunny.net/css?family=nunito:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
       rel="stylesheet"
     />
-    <link
-      href="{{ url_for('static', path='/dashboard.css') }}"
-      rel="stylesheet"
-    />
+    <link href="{{ url_for('static', path='/main.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/dashboard.97939324.css" />
   </head>
   <body class="flex flex-col min-w-screen min-h-screen">
     <main class="flex flex-col gap-4">
@@ -121,82 +119,173 @@
 
       <div class="card">
         <!-- <h2 class="border-l-2 pl-2 border-purple-500 font-bold text-lg">Links</h2> -->
-
         {% if links %}
-          <div class="overflow-x-auto relative rounded">
-            <table class="w-full text-left text-gray-500 dark:text-gray-400">
-              <thead
-                class="bg-slate-300 dark:bg-slate-700 text-gray-700 uppercase dark:text-gray-400"
+        <div class="overflow-x-auto relative rounded">
+          <table class="w-full text-left text-gray-500 dark:text-gray-400">
+            <thead
+              class="bg-slate-300 dark:bg-slate-700 text-gray-700 uppercase dark:text-gray-400"
+            >
+              <tr>
+                <th scope="col" class="py-3 px-6 text-center">Short code</th>
+                <th scope="col" class="py-3 px-6 hidden md:block">Title</th>
+                <th scope="col" class="py-3 px-6 text-center">Clicks</th>
+                <th scope="col" class="py-3 px-6 text-center">Created</th>
+                <th scope="col" class="py-3 px-6 text-center hidden md:block">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for link in links %}
+              <tr class="bg-white dark:bg-slate-900">
+                <th
+                  scope="row"
+                  class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  <a href="{{ link.long_url }}" class="short_link">
+                    {{ link.key }}
+                    <svg
+                      viewBox="0 0 16 16"
+                      class="w-4 h-4"
+                      astro-icon="charm:link-external"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                      >
+                        <path
+                          d="M8.25 2.75h-5.5v10.5h10.5v-5.5M13.25 2.75l-5.5 5.5m3-6.5h3.5v3.5"
+                        />
+                      </g>
+                    </svg>
+                  </a>
+                </th>
+                <td class="py-4 px-6 hidden md:block">{{ link.title }}</td>
+                <td class="py-4 px-6 text-center">{{ link.daily_clicks }}</td>
+                <td class="py-4 px-6 text-center">{{ link.created_at }}</td>
+                <td
+                  class="py-4 px-6 text-center hidden gap-1 md:flex md:flex-row"
+                >
+                  <button
+                    class="flex flex-row p-1.5 rounded bg-slate-200 dark:bg-slate-800 hover:bg-red-500 hover:text-white w-full justify-center"
+                  >
+                    <svg
+                      viewBox="0 0 16 16"
+                      class="w-4 h-4"
+                      astro-icon="charm:bin"
+                    >
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M5.75 4.25v-2.5h4.5v2.5m-6.5 1v9h8.5v-9m-9.5-.5h10.5"
+                      />
+                    </svg>
+                  </button>
+
+                  <button
+                    class="flex flex-row p-1.5 rounded bg-slate-200 dark:bg-slate-800 hover:bg-green-500 hover:text-white w-full justify-center"
+                  >
+                    <svg
+                      viewBox="0 0 16 16"
+                      class="w-4 h-4"
+                      astro-icon="charm:share"
+                    >
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                      >
+                        <circle cx="4" cy="8" r="2.25" />
+                        <circle cx="12" cy="12" r="2.25" />
+                        <circle cx="12" cy="4" r="2.25" />
+                        <path d="m6 9 4 2M6 7l4-2" />
+                      </g>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="flex flex-row gap-4 justify-between items-center">
+          {% if last_key %}
+            {% if new_key and count >= 25 %}
+              <a href="/dashboard/home?limit=25&last={{ last_key }}" class="btn hover:bg-purple-500">
+                <svg
+                  viewBox="0 0 16 16"
+                  class="w-4 h-4"
+                  astro-icon="charm:arrow-left"
+                >
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="m7.25 3.75-4.5 4.5 4.5 4.5m6-4.5H2.75"
+                  />
+                </svg>
+                Last Page
+              </a>
+            {% else %}
+              <a href="/dashboard/home" class="btn hover:bg-purple-500">
+                <svg
+                  viewBox="0 0 16 16"
+                  class="w-4 h-4"
+                  astro-icon="charm:arrow-left"
+                >
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="m7.25 3.75-4.5 4.5 4.5 4.5m6-4.5H2.75"
+                  />
+                </svg>
+                Last Page
+              </a>
+            {% endif %}
+          {% else %}
+            <button class="btn" disabled>
+              <svg
+                viewBox="0 0 16 16"
+                class="w-4 h-4"
+                astro-icon="charm:arrow-left"
               >
-                <tr>
-                  <th scope="col" class="py-3 px-6 text-center">Short code</th>
-                  <th scope="col" class="py-3 px-6 hidden md:block">Long URL</th>
-                  <th scope="col" class="py-3 px-6 text-center">Clicks</th>
-                  <th scope="col" class="py-3 px-6 text-center">Created</th>
-                  <th scope="col" class="py-3 px-6 text-center hidden md:block">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                  {% for link in links %}
-                      <tr class="bg-white dark:bg-slate-900">
-                          <th
-                          scope="row"
-                          class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
-                          >
-                          <a href="{{ link.long_url }}" class="short_link">
-                              {{ link.key}}
-                              <svg viewBox="0 0 16 16" class="w-4 h-4" astro-icon="charm:link-external" >
-                              <g fill="none" stroke="currentColor" stroke-linecap="round" troke-linejoin="round" stroke-width="1.5" >
-                                  <path d="M8.25 2.75h-5.5v10.5h10.5v-5.5M13.25 2.75l-5.5 5.5m3-6.5h3.5v3.5" />
-                              </g>
-                              </svg>
-                          </a>
-                          </th>
-                          <td class="py-4 px-6 hidden md:block">{{ link.long_url }}</td>
-                          <td class="py-4 px-6 text-center">{{ link.daily_clicks }}</td>
-                          <td class="py-4 px-6 text-center">{{ link.created_at }}</td>
-                          <td
-                          class="py-4 px-6 text-center hidden gap-1 md:flex md:flex-row"
-                          >
-                          <button class="flex flex-row p-1.5 rounded bg-slate-200 dark:bg-slate-800 hover:bg-red-500 hover:text-white w-full justify-center" >
-                              <svg viewBox="0 0 16 16" class="w-4 h-4" astro-icon="charm:bin" >
-                              <path
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="1.5"
-                                  d="M5.75 4.25v-2.5h4.5v2.5m-6.5 1v9h8.5v-9m-9.5-.5h10.5"
-                              />
-                              </svg>
-                          </button>
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="m7.25 3.75-4.5 4.5 4.5 4.5m6-4.5H2.75"
+                />
+              </svg>
+              Last Page
+            </button>
+          {% endif %}
 
-                          <button class="flex flex-row p-1.5 rounded bg-slate-200 dark:bg-slate-800 hover:bg-green-500 hover:text-white w-full justify-center" >
-                              <svg viewBox="0 0 16 16" class="w-4 h-4" astro-icon="charm:share" >
-                              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" >
-                                  <circle cx="4" cy="8" r="2.25" />
-                                  <circle cx="12" cy="12" r="2.25" />
-                                  <circle cx="12" cy="4" r="2.25" />
-                                  <path d="m6 9 4 2M6 7l4-2" />
-                              </g>
-                              </svg>
-                          </button>
-                          </td>
-                      </tr>
-                  {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        {% endif %}
-
-        {% if last_key %}
-          <a href="/dashboard/home?limit=1&last={{ last_key }}" class="btn hover:bg-purple-500">
+          {% if new_last %}
+          <a
+            href="/dashboard/home?limit=25&last={{ new_last }}"
+            class="btn hover:bg-purple-500"
+          >
+            Next Page
             <svg
               viewBox="0 0 16 16"
               class="w-4 h-4"
-              astro-icon="charm:rotate-anti-clockwise"
+              astro-icon="charm:arrow-right"
             >
               <path
                 fill="none"
@@ -204,11 +293,30 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="1.5"
-                d="M4.75 5.25h-3m0 3.5c0 2.5 2.798 5.5 6.25 5.5a6.25 6.25 0 1 0 0-12.5c-3.75 0-6.25 3.5-6.25 3.5v-3.5"
+                d="m8.75 3.25 4.5 4.5-4.5 4.5m-6-4.5h10.5"
               />
             </svg>
-            Load More
           </a>
+          {% else %}
+          <button class="btn" disabled>
+            Next Page
+            <svg
+              viewBox="0 0 16 16"
+              class="w-4 h-4"
+              astro-icon="charm:arrow-right"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="m8.75 3.25 4.5 4.5-4.5 4.5m-6-4.5h10.5"
+              />
+            </svg>
+          </button>
+          {% endif %}
+        </div>
         {% endif %}
 
         <a href="/dashboard/new_link" class="btn hover:bg-purple-500">
@@ -238,7 +346,7 @@
               type="text"
               name="app-link"
               id="app-link"
-              placeholder="{{ settings['APP_URL'] }}"
+              placeholder="{{ app_url if app_url else 'https://sf6543.deta.dev' }}"
               class="input w-full"
               required
             />

@@ -17,7 +17,7 @@ async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @router.get("/dashboard/home", response_class=HTMLResponse)
-async def read_dashboard(request: Request, limit: int = 1, last: Optional[str] = None):
+async def read_dashboard(request: Request, limit: int = 25, last: Optional[str] = None):
     return await get_dashboard(last, limit, request=request)
 
 @router.get("/dashboard/new_link", response_class=HTMLResponse)
